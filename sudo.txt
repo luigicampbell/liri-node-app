@@ -1,0 +1,25 @@
+DON'T Start syntax
+USER what is them doing
+
+
+step 1) run the file node filename command options
+
+ex: node liri.js spotify-this-song 'Never Gonna Give You Up'
+
+step 2) Show Data
+user sees a list of text data pertaining to search
+
+step 3) program starts, reads command, and does one of three
+process.argv[2]command and user-input[3]
+
+if (spotify){
+spotify call/get
+}
+
+if (twitter){
+twitter call/get
+}
+
+if (movies){
+movies/get
+}

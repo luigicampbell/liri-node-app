@@ -1,6 +1,6 @@
 require ('dotenv').config();
 // file system package
-const fs = require('fs')
+const fs = require('fs');
 
 const keys = require('./keys.js');
 // console.log(keys);
@@ -11,6 +11,13 @@ const Spotify = require('node-spotify-api');
 // NPM Twitter Module
 const Twitter = require('twitter');
 
+// TWITTER User Param
+const lulu = {
+  screen_name: '@luigicampbell11',
+  count: 20
+}
+
+
 // User Input
 let command = process.argv[2];
 let searchItem = process.argv[3];
@@ -18,14 +25,19 @@ let searchItem = process.argv[3];
 switch(command) {
   case 'spotify-this-song':
   console.log(`spotify`);
+  console.log(`========================================`);
+
   spotifyer();
   break;
   case 'my-tweets':
   console.log(`twitter`);
+  console.log(`========================================`);
   twitterer();
   break;
   case 'movie-this':
-  console.log(`OMDAPI`);
+  console.log(`OMDB`);
+  console.log(`========================================`);
+
   break;
   default:
   console.log(`error bruh`);
@@ -47,10 +59,12 @@ function logMySearch(log) {
 
 // arrow function do not get hoisted to top
 function spotifyer(){
+
   // step 1) Make instance of API object using key and secret
   // step 2) Insert user search into query URL
   // step 3) Submit Query
   // step 4) process results drill into the object
+
   const spotify = new Spotify({
     id: keys.spotify.id,
     secret: keys.spotify.secret
@@ -77,20 +91,54 @@ function spotifyer(){
     let album = track.album.name;
     console.log(`Album: ${album}`);
     console.log(`========================================`);
-    searchLog = `Search type: ${command}\nArtist: ${artist}\nSong Name: ${songName}\nSpotify Preview Link: ${preview}\nAlbum: ${album}\n ========================================`;
-    // Append to log.txt
+    searchLog = `Search type: ${command}\nArtist: ${artist}\nSong Name: ${songName}\nSpotify Preview Link: ${preview}\nAlbum: ${album}\n========================================`;
+    // Appends to log.txt
     logMySearch(searchLog);
-  });
+  }); // Closes search
+
 } // Closes Spotify
 
 // Twitter Function
 function twitterer(){
-  const tweet = new Twitter({
+  const client = new Twitter({
     consumer_key: keys.twitter.consumer_key,
     consumer_secret: keys.twitter.consumer_secret,
     access_token_key: keys.access_token_key,
     access_token_secret: keys.access_token_secret
   })
+  // Twitter search
+  client.get('statuses/user_timeline',lulu, function(error, tweets, response) {
+    if(!error){
+      let user = tweets[0].user.name;
+      console.log(`${user}'s Tweet Deets`);
+      console.log(`========================================`);
+      let followers = tweets[0].user.followers_count;
+      console.log(`Followers: ${followers}`);
+      let friends = tweets[0].user.friends_count;
+      console.log(`Friends: ${friends}\n`);
+
+      searchLog = `\nSearch type: ${command}\n${user}'s Tweet Deets\nFollowers: ${followers}\nFriends: ${friends}\n`;
+      logMySearch(searchLog);
+      let created;
+      let content;
+      // Prints all tweets up until count value
+      for(let i = 0; i< tweets.length; i++){
+        created = tweets[i].created_at;
+        console.log(`${i +1}) Tweeted on: ${created}\n`);
+        content = tweets[i].text;
+        console.log(`Tweet Content: ${content}`);
+        // Appends in loop
+        searchLog = `Tweeted on: ${created}\nContent: ${content}\n`;
+        // Appends to log.txt
+        logMySearch(searchLog);
+        console.log(`========================================`);
+      }
+    }
+    else {
+      console.log(error);
+    }
+
+  }); // Closes search
 
 } // Closes Twitter Function
 

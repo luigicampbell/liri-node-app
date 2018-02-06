@@ -2,6 +2,10 @@ require ('dotenv').config();
 // file system package
 const fs = require('fs');
 
+const request = require('request');
+
+const inquirer = require('inquirer');
+
 const keys = require('./keys.js');
 // console.log(keys);
 
@@ -37,6 +41,7 @@ switch(command) {
   case 'movie-this':
   console.log(`OMDB`);
   console.log(`========================================`);
+  moviethiser();
 
   break;
   default:
@@ -117,22 +122,20 @@ function twitterer(){
       let friends = tweets[0].user.friends_count;
       console.log(`Friends: ${friends}\n`);
 
-      searchLog = `\nSearch type: ${command}\n${user}'s Tweet Deets\nFollowers: ${followers}\nFriends: ${friends}\n`;
-      logMySearch(searchLog);
+      searchLog += `\nSearch type: ${command}\n${user}'s Tweet Deets\nFollowers: ${followers}\nFriends: ${friends}\n`;
       let created;
       let content;
       // Prints all tweets up until count value
       for(let i = 0; i< tweets.length; i++){
         created = tweets[i].created_at;
-        console.log(`${i +1}) Tweeted on: ${created}\n`);
         content = tweets[i].text;
-        console.log(`Tweet Content: ${content}`);
         // Appends in loop
-        searchLog = `Tweeted on: ${created}\nContent: ${content}\n`;
-        // Appends to log.txt
-        logMySearch(searchLog);
-        console.log(`========================================`);
+        searchLog += `${i +1}) Tweeted on: ${created}\nTweet Content: ${content}\nTweeted on: ${created}\nContent: ${content}\n`;
+        console.log(searchLog);
       }
+      console.log(`========================================`);
+      // Appends to log.txt
+      logMySearch(searchLog);
     }
     else {
       console.log(error);
@@ -143,6 +146,11 @@ function twitterer(){
 } // Closes Twitter Function
 
 //
-const omdb = () =>{
+function moviethiser(){
+  request(`http://www.omdbapi.com/?apikey=trilogy&`, function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log(response); //
+});
 
 }

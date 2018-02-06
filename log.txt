@@ -95,3 +95,14 @@ https://t.co/NEK11Gtsa5
 Tweet Content: I'm in https://t.co/W1jwGXiv7s
 Tweeted on: Thu Feb 01 00:13:30 +0000 2018
 Content: I'm in https://t.co/W1jwGXiv7s
+Search type: spotify-this-song
+Artist: Cage The Elephant
+Song Name: Shake Me Down
+Spotify Preview Link: https://open.spotify.com/track/12sYWro0wGQpq0rjE0lKcm
+Album: Thank You Happy Birthday
+========================================Search type: spotify-this-song
+Artist: Gabriel Iglesias
+Song Name: Magic Mike Story
+Spotify Preview Link: https://open.spotify.com/track/2nbc5ZQ0ogUk0aYF2PkUqa
+Album: Aloha Fluffy
+========================================

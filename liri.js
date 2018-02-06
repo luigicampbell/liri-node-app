@@ -86,7 +86,6 @@ function spotifyer(){
     let track = data.tracks.items[0]
 
     // console.log(track.external_urls.spotify);
-    console.log(`========================================`);
     let artist = track.album.artists[0].name;
     console.log(`Artist: ${artist}`);
     let songName = track.name;
@@ -95,7 +94,6 @@ function spotifyer(){
     console.log(`Spotify Preview Link: ${preview}`);
     let album = track.album.name;
     console.log(`Album: ${album}`);
-    console.log(`========================================`);
     searchLog = `Search type: ${command}\nArtist: ${artist}\nSong Name: ${songName}\nSpotify Preview Link: ${preview}\nAlbum: ${album}\n========================================`;
     // Appends to log.txt
     logMySearch(searchLog);
@@ -145,12 +143,14 @@ function twitterer(){
 
 } // Closes Twitter Function
 
-//
+// Movie Search
 function moviethiser(){
-  request(`http://www.omdbapi.com/?apikey=trilogy&`, function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log(response); //
-});
+  request(`http://www.omdbapi.com/?i=tt3896198&apikey=2a4893&s=${searchItem}`, function (error, response, body) {
+    if (error){
+      console.log('error:', error); // Print the error if one occurred
+    }
+    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    console.log(response); //
+  });
 
 }

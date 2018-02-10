@@ -97,7 +97,7 @@ function spotifyer(){
     searchLog = `========================================\nSearch type: ${command}\nArtist: ${artist}\nSong Name: ${songName}\nSpotify Preview Link: ${preview}\nAlbum: ${album}\n========================================`;
     // Appends to log.txt
     logMySearch(searchLog);
-  }); // Closes search
+  }); // Closes spotify search
 
 } // Closes Spotify
 
@@ -139,7 +139,7 @@ function twitterer(){
       console.log(error);
     }
 
-  }); // Closes search
+  }); // Closes twitter search
 
 } // Closes Twitter Function
 
@@ -164,6 +164,6 @@ function moviethiser(){
     searchLog += `========================================\nFilm Title: ${sourceData.Title}\nDate Released: ${sourceData.Released}\nIMDB Rating: ${sourceData.imdbRating}\nRotten Tomatoes: ${sourceData.Ratings[1].Value}\nCountry: ${sourceData.Country}\nLanguage(s): ${sourceData.Language}\nPlot: ${sourceData.Plot}\nActors: ${sourceData.Actors}`;
 
     logMySearch(searchLog);
-  });
+  }); // Closes movie search
 
 } // Closes moviethiser function

@@ -94,7 +94,7 @@ function spotifyer(){
     console.log(`Spotify Preview Link: ${preview}`);
     let album = track.album.name;
     console.log(`Album: ${album}`);
-    searchLog = `Search type: ${command}\nArtist: ${artist}\nSong Name: ${songName}\nSpotify Preview Link: ${preview}\nAlbum: ${album}\n========================================`;
+    searchLog = `========================================\nSearch type: ${command}\nArtist: ${artist}\nSong Name: ${songName}\nSpotify Preview Link: ${preview}\nAlbum: ${album}\n========================================`;
     // Appends to log.txt
     logMySearch(searchLog);
   }); // Closes search
@@ -128,7 +128,7 @@ function twitterer(){
         created = tweets[i].created_at;
         content = tweets[i].text;
         // Appends in loop
-        searchLog += `${i +1}) Tweeted on: ${created}\nTweet Content: ${content}\nTweeted on: ${created}\nContent: ${content}\n`;
+        searchLog += `${i +1}) Tweeted on: ${created}\nTweet Content: ${content}\n========================================\n`;
         console.log(searchLog);
       }
       console.log(`========================================`);
@@ -145,12 +145,25 @@ function twitterer(){
 
 // Movie Search
 function moviethiser(){
-  request(`http://www.omdbapi.com/?i=tt3896198&apikey=2a4893&s=${searchItem}`, function (error, response, body) {
+  request(`http://www.omdbapi.com/?t=${searchItem}&y=&plot=short&apikey=2a4893`, function (error, response, body) {
     if (error){
       console.log('error:', error); // Print the error if one occurred
     }
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log(response); //
+    let sourceData = JSON.parse(body);
+    // console.log(sourceData);
+    console.log(`Film Title: ${sourceData.Title}`);
+    console.log(`Date Released: ${sourceData.Released}`);
+    console.log(`IMDB Rating: ${sourceData.imdbRating}`);
+    console.log(`Rotten Tomatoes: ${sourceData.Ratings[1].Value}`);
+    console.log(`Country: ${sourceData.Country}`);
+    console.log(`Language(s): ${sourceData.Language}`);
+    console.log(`Plot: ${sourceData.Plot}`);
+    console.log(`Actors: ${sourceData.Actors}`);
+
+    searchLog += `========================================\nFilm Title: ${sourceData.Title}\nDate Released: ${sourceData.Released}\nIMDB Rating: ${sourceData.imdbRating}\nRotten Tomatoes: ${sourceData.Ratings[1].Value}\nCountry: ${sourceData.Country}\nLanguage(s): ${sourceData.Language}\nPlot: ${sourceData.Plot}\nActors: ${sourceData.Actors}`;
+
+    logMySearch(searchLog);
   });
 
-}
+} // Closes moviethiser function
